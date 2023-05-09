@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class CaseController
 {
     private $cases;
-    private $filePath = __DIR__ . '/cases.json';
+    private $filePath = __DIR__ . '/../data/cases.json';
 
     public function __construct()
     {

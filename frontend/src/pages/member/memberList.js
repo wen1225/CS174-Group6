@@ -67,7 +67,7 @@ export function MemberList() {
                     </Paper>
                 </Box>
                 <Button
-                    component={Link} to='/member/create-member'
+                    component={Link} to='/member/create'
                     variant="contained"
                     sx={{ mt: 3, mb: 2 , textTransform: 'none', float: 'right'}}
                 >
