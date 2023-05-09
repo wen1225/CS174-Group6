@@ -11,16 +11,17 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined'
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios'
 
 
 export function Cases() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [caseList, setCaseList] = React.useState([]);;
 
     const navigate = useNavigate();
 
@@ -48,25 +49,57 @@ export function Cases() {
         )
     }
 
+    const renderFormButton = (params) => {
+        return (
+            <IconButton
+                variant="contained"
+                sx={{ textTransform: "none" }}
+                component={Link} to={{
+                    pathname: `/case/update/${params.id}`,
+                }}
+            >
+                <EditIcon />
+            </IconButton>
+        )
+    }
+
+    const fetchCases = async() =>{
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/case`)).data;
+
+        const tempList = [...caseList];
+        
+        Object.keys(HTTP_RES).forEach((caseId)=>{
+            const CASE_INFO = HTTP_RES[caseId];
+
+            tempList.push({
+                id: caseId,
+                title: CASE_INFO["title"],
+                description: CASE_INFO["Description"],
+                status:  CASE_INFO["isCaseClosed"]? "Open" : "Closed",
+            })
+
+            setCaseList(tempList);
+        })
+    }
+
+    useEffect(()=>{
+        fetchCases()
+    }, [])
+
     const columns = [
         { field: 'id', headerName: 'Case ID', width: 150 },
         { field: 'title', headerName: 'Title', width: 200 },
         { field: 'description', headerName: 'Description', width: 400 },
         { field: 'status', headerName: 'Status', width: 150 },
-        { field: 'action', headerName: 'Action', width: 100, renderCell: renderDropDown }
+        { field: "click", headerName: "Edit", renderCell: renderFormButton}
     ];
 
-    const rows = [
-        { id: 1, title: 'Case Title 1', description: 'Case Description 1', status: 'Open' },
-        { id: 2, title: 'Case Title 2', description: 'Case Description 2', status: 'Closed' },
-        { id: 3, title: 'Case Title 3', description: 'Case Description 3', status: 'Open' },
-    ];
 
     return (
         <Paper elevation={3} sx={{ m: '2vh' }}>
             <Typography variant='h5' sx={{ p: '1vh' }}>Cases</Typography>
             <Box>
-                <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+                <DataGrid rows={caseList} columns={columns} pageSize={5} checkboxSelection />
                 <Button variant='contained' sx={{ mt: 3, mb: 2, textTransform: 'none', float: 'right' }} onClick={handleClick}>Create Case</Button>
             </Box>
         </Paper>

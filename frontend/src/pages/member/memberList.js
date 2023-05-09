@@ -57,7 +57,7 @@ export function MemberList() {
         { field: "firstName", headerName: "First Name", flex: 1 },
         { field: "lastName", headerName: "Last Name", flex: 1 },
         { field: "gender", headerName: "Gender", flex: 1 },
-        { field: "click", headerName: "Action", flex: 1 , renderCell: renderFormButton}
+        { field: "click", headerName: "Edit", flex: 1 , renderCell: renderFormButton}
     ]
 
     useEffect(()=>{

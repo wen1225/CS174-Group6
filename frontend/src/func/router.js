@@ -12,6 +12,7 @@ import { CreateAccount } from "../pages/auth/CreateAccount";
 import { Homepage } from "../pages/homepage";
 import { Cases } from "../pages/cases/Cases";
 import { CreateCaseForm } from "../pages/cases/createCase"
+import { UpdateCaseForm } from "../pages/cases/update";
 
 const AppLayout = () => {
     return (
@@ -60,6 +61,10 @@ export const router = createBrowserRouter([
                     {
                         path: "create",
                         element: <CreateCaseForm />
+                    },
+                    {
+                        path: "update/:id",
+                        element: <UpdateCaseForm />
                     }
                 ]
             },
