@@ -9,12 +9,13 @@ import { CreateMemberForm } from "../pages/member/create";
 import { UpdateMemberForm } from "../pages/member/update";
 import { Login } from "../pages/auth/Login";
 import { CreateAccount } from "../pages/auth/CreateAccount";
+import { Homepage } from "../pages/homepage";
 
 const AppLayout = () => {
     return (
         <>
             <MenuBar />
-            <div style={{paddingTop: "60px"}}>
+            <div style={{paddingTop: "80px"}}>
                 <Outlet />
             </div>
         </>
@@ -25,7 +26,11 @@ export const router = createBrowserRouter([
     {
         path: "",
         element: <AppLayout />,
-        children: [
+        children: [,
+            {
+                path: "",
+                element: <Homepage />
+            },
             {
                 path: "member",
                 children: [

@@ -40,7 +40,14 @@ export function MenuBar() {
                     }}>
                         Membership
                     </Button>
-                    <div>
+                    <Button sx={{ color: '#fff' }} component={Link} to={{
+                        pathname: `/case/`,
+                    }}>
+                        Case
+                    </Button>
+                
+                </Box>
+                <div>
                         <IconButton
                             size="large"
                             aria-label="account of current user"
@@ -55,7 +62,7 @@ export function MenuBar() {
                             id="menu-appbar"
                             anchorEl={anchorEl}
                             anchorOrigin={{
-                                vertical: 'top',
+                                vertical: 'bottom',
                                 horizontal: 'right',
                             }}
                             keepMounted
@@ -66,11 +73,10 @@ export function MenuBar() {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                            <MenuItem onClick={handleClose}>Login</MenuItem>
+                            <MenuItem onClick={handleClose}>Register</MenuItem>
                         </Menu>
                     </div>
-                </Box>
             </Toolbar>
         </AppBar>
     )
