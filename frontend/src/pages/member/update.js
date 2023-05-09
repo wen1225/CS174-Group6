@@ -13,12 +13,25 @@ import RadioGroup from '@mui/material/RadioGroup'
 import Radio from '@mui/material/Radio'
 import Paper from '@mui/material/Paper'
 import { createTheme, ThemeProvider} from '@mui/material/styles'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
+
+
 
 const theme = createTheme()
 
 export function UpdateMemberForm() {
     const[gender, setGender] = useState("")
+    const { id } = useParams();
+    const [firstName, setFirstName] = useState()
+    const [lastName, setLastName] = useState()
+    const [birthday, setBirthday] = useState()
+    const [email, setEmail] = useState()
+    const [remark, setRemark] = useState()
+    const [phone, setPhone] = useState()
+    const navigate = useNavigate();
 
     const handleGenderChange = (event) => {
         setGender(event.target.value)
@@ -27,13 +40,48 @@ export function UpdateMemberForm() {
     const handleSubmit = (event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        console.log({
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
-          birthday: formData.get("birthday"),
-          gender: gender,
-        })
+
+        const HTTP_REQ_DATA = {
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+            birthday: formData.get("birthday"),
+            gender: gender,
+            remarks: formData.get("remark"),
+            email: formData.get("email"),
+            phone: formData.get("phone").toString()
+          
+          }
+
+        console.log(HTTP_REQ_DATA)
+
+        axios.put(`${process.env["REACT_APP_SERVER_URL"]}/membership/${id}`, HTTP_REQ_DATA)
+
+        navigate("/member")
+
     }
+
+    const handleDelete = async (event) => {
+        event.preventDefault();
+        await axios.delete(`${process.env["REACT_APP_SERVER_URL"]}/membership/${id}`);
+        navigate("/member")
+    }
+
+    const fetchMemberInfo = async() => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership/${id}`)).data;
+
+        setGender(HTTP_RES["gender"])
+        setFirstName(HTTP_RES["firstName"])
+        setLastName(HTTP_RES["lastName"])
+        setBirthday(HTTP_RES["birthday"])
+        setEmail(HTTP_RES["email"])
+        setPhone(HTTP_RES["phone"])
+        setRemark(HTTP_RES["remark"])
+
+    }
+
+    useEffect(()=>{
+        fetchMemberInfo();
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -65,7 +113,8 @@ export function UpdateMemberForm() {
                             required
                             fullWidth
                             id="firstName"
-                            label="First Name"
+                            value={firstName}
+                            onChange={(e)=>setFirstName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -79,9 +128,10 @@ export function UpdateMemberForm() {
                             required
                             fullWidth
                             id="lastName"
-                            label="Last Name"
                             name="lastName"
                             autoComplete="family-name"
+                            value={lastName}
+                            onChange={(e)=>setLastName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -96,7 +146,9 @@ export function UpdateMemberForm() {
                             fullWidth
                             id="birthday"
                             name="birthday"
-                            type="datetime-local"
+                            type="date"
+                            value={birthday}
+                            onChange={(e)=>setBirthday(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -119,6 +171,56 @@ export function UpdateMemberForm() {
                             </RadioGroup>
                             </FormControl>
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Email
+                            </Typography>
+                            <TextField
+                            required
+                            fullWidth
+                            id="email"
+                            name="email"
+                            type="email"
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Phone
+                            </Typography>
+                            <TextField
+                            required
+                            fullWidth
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            value={phone}
+                            onChange={(e)=>setPhone(e.target.value)}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Remark
+                            </Typography>
+                            <TextField
+                            fullWidth
+                            id="remark"
+                            name="remark"
+                            type="text"
+                            value={remark}
+                            onChange={(e)=>setRemark(e.target.value)}
+                            />
+                        </Grid>
                         </Grid>
                         <Box
                             component="div"
@@ -127,6 +229,7 @@ export function UpdateMemberForm() {
                             <Button
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2, textTransform: 'none', backgroundColor: 'red'}}
+                                onClick={handleDelete}
                             >
                                 Delete Member
                             </Button>

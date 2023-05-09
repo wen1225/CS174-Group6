@@ -15,11 +15,14 @@ import Paper from '@mui/material/Paper'
 import { createTheme, ThemeProvider} from '@mui/material/styles'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const theme = createTheme()
 
 export function CreateMemberForm() {
     const[gender, setGender] = useState("")
+    const navigate = useNavigate();
 
     const handleGenderChange = (event) => {
         setGender(event.target.value)
@@ -43,6 +46,8 @@ export function CreateMemberForm() {
         console.log(HTTP_REQ_DATA)
 
         axios.post(`${process.env["REACT_APP_SERVER_URL"]}/membership`, HTTP_REQ_DATA)
+
+        navigate("/member")
 
     }
 

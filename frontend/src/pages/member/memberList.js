@@ -9,12 +9,15 @@ import IconButton from '@mui/material/IconButton'
 import EditIcon from '@mui/icons-material/Edit'
 import { createTheme, ThemeProvider} from '@mui/material/styles'
 import Typography  from '@mui/material/Typography'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const theme = createTheme()
 
 export function MemberList() {
+
+    const [memberInfoList, setMemberInfoList] = useState([]);
 
     const renderFormButton = (params) => {
         return (
@@ -30,17 +33,36 @@ export function MemberList() {
         )
     }
 
+    const fetchMember = async() => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership`)).data;
+
+        const tempList = [...memberInfoList];
+        
+        Object.keys(HTTP_RES).forEach((memberId)=>{
+            const MEMBER_INfO = HTTP_RES[memberId];
+
+            tempList.push({
+                id: memberId,
+                firstName: MEMBER_INfO["firstName"],
+                lastName: MEMBER_INfO["lastName"],
+                gender:  MEMBER_INfO["gender"]
+            })
+
+            setMemberInfoList(tempList);
+        })
+    }
+
     const columns = [
-        { field: "id", headerName: "ID", width: 50 },
+        { field: "id", headerName: "ID", flex: 1 },
         { field: "firstName", headerName: "First Name", flex: 1 },
         { field: "lastName", headerName: "Last Name", flex: 1 },
         { field: "gender", headerName: "Gender", flex: 1 },
         { field: "click", headerName: "Action", flex: 1 , renderCell: renderFormButton}
     ]
 
-    const rows = [
-        { id: 1, firstName: "John", lastName: "Doe", gender: "Male"},
-    ]
+    useEffect(()=>{
+        fetchMember()
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
@@ -58,7 +80,7 @@ export function MemberList() {
                     </Typography>
                     <Paper sx={{padding: 2}}>
                         <DataGrid
-                            rows={rows}
+                            rows={memberInfoList}
                             columns={columns}
                             pageSize={5}
                             rowsPerPageOptions={[5]}
