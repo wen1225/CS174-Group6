@@ -24,15 +24,17 @@ export function Homepage() {
             >
                 <Container
                     sx={{
-                        display: 'flex',
+                        display: 'grid',
                         alignItems: 'center',
                         justifyContent: 'center',
                         height: '100%',
                     }}
                 >
-                    <Typography variant="h2" component="h2" align="left" gutterBottom sx={{color: 'white'}}>
+                    <Typography variant="h2" sx={{ color: 'white' }}>
                         Customer Relationship Management
                     </Typography>
+                    <Typography variant="h5" sx={{color: '#DBF9FF'}}>Your one-for-all solution to maintaining customer relationships</Typography>
+
                 </Container>
             </Box>
             <Container sx={{ marginTop: '64px' }}>
@@ -73,7 +75,6 @@ export function Homepage() {
                         <Button variant="contained" color="secondary">
                             Learn More
                         </Button>
-
                     </Grid>
                 </Grid>
             </Container>
