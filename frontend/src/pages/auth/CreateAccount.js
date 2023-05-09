@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 
-function CreateAccount() {
+export function CreateAccount() {
     // Set up state variables for first name, last name, email, password, and confirmation
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -148,5 +148,3 @@ function CreateAccount() {
         </Container>
     );
 }
-
-export default CreateAccount;

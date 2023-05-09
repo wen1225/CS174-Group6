@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
-import CreateAccount from './CreateAccount';
+import {CreateAccount} from './CreateAccount';
 
-function Login() {
+export function Login() {
     // Declaring state variables using the 'useState' hook
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -94,5 +94,3 @@ function Login() {
         </Container>
     );
 }
-
-export default Login;
