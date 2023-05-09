@@ -1,1 +1,57 @@
-{"6459e7f4a22d0":{"firstName":"Meow","lastName":"Last","birthday":"2023-05-11","gender":"Male","remarks":"ffeef","email":"test@gmail.com","phone":"254354455445"}}
+{
+    "e9b83601d1616": {
+      "firstName": "Isabelle",
+      "lastName": "Jones",
+      "birthday": "1996-08-12",
+      "gender": "Female",
+      "remarks": "Prefers to be contacted via email.",
+      "email": "isabellejones@gmail.com",
+      "phone": "+1 (234) 567-8901"
+    },
+    "849d9d7ceccf2": {
+      "firstName": "Michael",
+      "lastName": "Chen",
+      "birthday": "1984-02-28",
+      "gender": "Male",
+      "remarks": "Has a food allergy to peanuts.",
+      "email": "michaelchen@yahoo.com",
+      "phone": "+1 (555) 555-1234"
+    },
+    "e1d16f8c74a84": {
+      "firstName": "Lila",
+      "lastName": "Smith",
+      "birthday": "1978-05-03",
+      "gender": "Female",
+      "remarks": "Loves to travel and wants recommendations for a good vacation spot.",
+      "email": "lilasmith@gmail.com",
+      "phone": "+1 (555) 123-4567"
+    },
+    "ea6dc06c8b8ba": {
+      "firstName": "Alex",
+      "lastName": "Brown",
+      "birthday": "1992-11-20",
+      "gender": "Male",
+      "remarks": "Has a pet dog named Max.",
+      "email": "alexbrown@gmail.com",
+      "phone": "+1 (987) 654-3210"
+    },
+    "bd0b802cf0b37": {
+      "firstName": "Sophia",
+      "lastName": "Wilson",
+      "birthday": "2001-03-15",
+      "gender": "Female",
+      "remarks": "Prefers to be contacted via phone.",
+      "email": "sophiawilson@hotmail.com",
+      "phone": "+1 (123) 456-7890"
+    },
+    "0e24de31cb13b": {
+      "firstName": "Joshua",
+      "lastName": "Lee",
+      "birthday": "1998-01-01",
+      "gender": "Male",
+      "remarks": "Has a sibling who is also a customer of this business.",
+      "email": "joshualee@gmail.com",
+      "phone": "+1 (111) 222-3333"
+    }
+  }
+  
