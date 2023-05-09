@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom'
 
 const theme = createTheme()
 
-export default function Members() {
+export function MemberList() {
 
     const renderFormButton = (params) => {
         return (
@@ -22,7 +22,7 @@ export default function Members() {
                 variant="contained"
                 sx={{ textTransform: "none" }}
                 component={Link} to={{
-                    pathname: `/member/${params.id}`,
+                    pathname: `/member/update/${params.id}`,
                 }}
             >
                 <EditIcon />

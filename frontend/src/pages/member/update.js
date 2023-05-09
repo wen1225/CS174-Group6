@@ -17,7 +17,7 @@ import { useState } from 'react'
 
 const theme = createTheme()
 
-export default function UpdateMemberForm() {
+export function UpdateMemberForm() {
     const[gender, setGender] = useState("")
 
     const handleGenderChange = (event) => {
