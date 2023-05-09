@@ -4,52 +4,61 @@ import { Paper } from '@mui/material';
 import { FormControl, FormLabel } from '@mui/material';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Typography from '@mui/material/Typography'
 import { Select } from "@mui/material";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
 
+export function UpdateCaseForm() {
 
-export function CreateCaseForm() {
+    const { id } = useParams();
+    const [title, setTitle] = useState();
+    const [description, setDescription] = useState();
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [associatedMemberId, setAssociatedMemberId] = useState();
+    const [isCaseClosed, setIsCaseClosed] = useState();
     const navigate = useNavigate();
-
-    const [formData, setFormData] = useState({
-        caseTitle: '',
-        startDate: '',
-        endDate: '',
-        isCaseClosed: false,
-        associatedMemberId: '',
-        caseDescription: '',
-    });
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = new FormData(event.currentTarget)
 
-        const CASE = form.get("isCaseClosed") ? "closed" : "open"
+        const CASE = isCaseClosed ? "closed" : "open"
 
         const HTTP_REQ_DATA = {
-            "title": form.get("caseTitle"),
-            "startDate": form.get("startDate"),
+            "title": title,
+            "startDate": startDate,
             "isCaseClosed": CASE,
-            "endDate": form.get("endDate"),
-            "associatedMemberId": form.get("associatedMemberId"),
-            "Description": form.get("caseDescription")
+            "endDate": endDate,
+            "associatedMemberId": associatedMemberId,
+            "Description": description
 
         }
 
-        axios.post(`${process.env["REACT_APP_SERVER_URL"]}/case`, HTTP_REQ_DATA)
+        axios.put(`${process.env["REACT_APP_SERVER_URL"]}/case/${id}`, HTTP_REQ_DATA)
         navigate("/case")
 
+
     }
+
+    const fetchCaseInfo = async () => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/case/${id}`)).data;
+
+        setTitle(HTTP_RES["title"]);
+        setStartDate(HTTP_RES["startDate"]);
+        setEndDate(HTTP_RES["endDate"]);
+        setIsCaseClosed(HTTP_RES["isCaseClosed"])
+        setAssociatedMemberId(HTTP_RES["associatedMemberId"])
+        setDescription(HTTP_RES["Description"])
+
+    }
+
+    useEffect(() => {
+        fetchCaseInfo();
+    }, [])
 
     return (
         <FormControl
@@ -67,20 +76,24 @@ export function CreateCaseForm() {
 
         >
             <TextField
-                name="caseTitle"
+                name="title"
                 label="Case Title"
-                value={formData.caseTitle}
-                onChange={handleChange}
+                value={title}
+                onChange={(e)=>{
+                    setTitle(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}
                 sx={{ gridColumn: '1 / 3', m: '1vh' }}
             />
             <TextField
-                name="caseDescription"
+                name="description"
                 label="Case Description"
-                value={formData.caseDescription}
-                onChange={handleChange}
+                value={description}
+                onChange={(e)=>{
+                    setDescription(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -90,8 +103,10 @@ export function CreateCaseForm() {
             <TextField
                 name="associatedMemberId"
                 label="Associated Member ID"
-                value={formData.associatedMemberId}
-                onChange={handleChange}
+                value={associatedMemberId}
+                onChange={(e)=>{
+                    setAssociatedMemberId(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -101,13 +116,12 @@ export function CreateCaseForm() {
                 name="startDate"
                 label="Start Date"
                 type="date"
-                value={formData.startDate}
-                onChange={handleChange}
+                value={startDate}
+                onChange={(e)=>{
+                    setStartDate(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
-                }}
-                InputProps={{
-                    inputProps: { max: formData.endDate },
                 }}
                 sx={{ gridColumn: '1 / 3', m: '1vh' }}
             />
@@ -115,21 +129,27 @@ export function CreateCaseForm() {
                 name="endDate"
                 label="End Date"
                 type="date"
-                value={formData.endDate}
-                onChange={handleChange}
+                value={endDate}
+                onChange={(e)=>{
+                    setEndDate(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}
-                InputProps={{
-                    inputProps: { min: formData.startDate },
-                }}
                 sx={{ gridColumn: '1 / 3', m: '1vh' }}
             />
+            <Typography
+                textAlign="center"
+            >
+                Is Case Closed?
+            </Typography>
             <Select
                 name="isCaseClosed"
                 label="Is Case Closed"
-                value={formData.status}
-                onChange={handleChange}
+                value={isCaseClosed}
+                onChange={(e)=>{
+                    setIsCaseClosed(e.target.value)
+                }}
                 InputLabelProps={{
                     shrink: true,
                 }}
@@ -138,6 +158,7 @@ export function CreateCaseForm() {
                 <MenuItem value={false}>Opened</MenuItem>
                 <MenuItem value={true}>Closed</MenuItem>
             </Select>
+
             <Button type="submit" variant="contained" sx={{ justifySelf: 'center' }}>Submit</Button>
         </FormControl>
     );
