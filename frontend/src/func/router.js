@@ -75,6 +75,15 @@ export const router = createBrowserRouter([
                         element: <CreateAccount />
                     }
                 ]
+            },
+            {
+                path: "case",
+                children: [
+                    {
+                        path: "",
+                        element: <Cases />
+                    }
+                ]
             }
         ]
     }
