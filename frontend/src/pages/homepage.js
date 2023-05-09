@@ -7,9 +7,33 @@ import { Button, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { makeStyles } from '@material-ui/styles';
 import Image from '../background.jpeg';
+import { useState, useEffect } from 'react';
+import axios from 'axios'
 
 
 export function Homepage() {
+
+    const [caseCount, setCaseCount] = useState(0);
+    const [memberCount, setMemberCount] = useState(0);
+
+    const fetchCases = async() =>{
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/case`)).data;
+        console.log(Object.keys(HTTP_RES).length)
+        setCaseCount(Object.keys(HTTP_RES).length);
+
+    }
+
+    const fetchMembers = async() => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership`)).data;
+        console.log(Object.keys(HTTP_RES).length)
+        setMemberCount(Object.keys(HTTP_RES).length);
+    }
+
+    useEffect(()=>{
+        fetchCases()
+        fetchMembers()
+    }, [])
+
     return (
         <Box>
             <Box
@@ -27,13 +51,38 @@ export function Homepage() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        height: '100%',
+                        height: '50%',
                     }}
                 >
+                    <div style={{height:" 50%"}}>
                     <Typography variant="h2" component="h2" align="left" gutterBottom sx={{color: 'white'}}>
                         Customer Relationship Management
                     </Typography>
-                </Container>
+                    </div>
+
+                    </Container>
+                    <Container
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '50%',
+                    }}
+                >
+                    <Grid>
+                    <Box> 
+                    <Typography variant="h3" component="h3" textAlign="center" gutterBottom sx={{color: 'white'}}>
+                    Number of Cases: {caseCount}
+                    </Typography>
+                    </Box>
+                    <Box>
+                    <Typography variant="h3" component="h3" textAlign="center" gutterBottom sx={{color: 'white'}}>
+                    Number of Members: {memberCount}
+                    </Typography>
+                    </Box>
+                    </Grid>
+
+                    </Container>
             </Box>
             <Container sx={{ marginTop: '64px' }}>
                 <Grid container spacing={4} justifyContent="center">

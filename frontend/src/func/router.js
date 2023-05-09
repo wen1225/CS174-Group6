@@ -18,7 +18,7 @@ const AppLayout = () => {
     return (
         <>
             <MenuBar />
-            <div style={{ paddingTop: "80px" }}>
+            <div style={{ paddingTop: "70px" }}>
                 <Outlet />
             </div>
         </>
