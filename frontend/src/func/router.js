@@ -10,6 +10,7 @@ import { UpdateMemberForm } from "../pages/member/update";
 import { Login } from "../pages/auth/Login";
 import { CreateAccount } from "../pages/auth/CreateAccount";
 import { Homepage } from "../pages/homepage";
+import Cases from '../pages/Cases'
 
 const AppLayout = () => {
     return (
@@ -58,6 +59,15 @@ export const router = createBrowserRouter([
                     {
                         path: "register",
                         element: <CreateAccount />
+                    }
+                ]
+            },
+            {
+                path: "case",
+                children: [
+                    {
+                        path: "",
+                        element: <Cases />
                     }
                 ]
             }

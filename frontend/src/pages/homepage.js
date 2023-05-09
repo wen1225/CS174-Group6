@@ -8,7 +8,8 @@ export function Homepage() {
     return (
         <div>
             <Container maxWidth="sm">
-                </Container>
+                
+            </Container>
         </div>
     )
 }
