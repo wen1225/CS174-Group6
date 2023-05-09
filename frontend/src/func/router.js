@@ -10,12 +10,14 @@ import { UpdateMemberForm } from "../pages/member/update";
 import { Login } from "../pages/auth/Login";
 import { CreateAccount } from "../pages/auth/CreateAccount";
 import { Homepage } from "../pages/homepage";
+import { Cases } from "../pages/cases/Cases";
+import { CreateCaseForm } from "../pages/cases/createCase"
 
 const AppLayout = () => {
     return (
         <>
             <MenuBar />
-            <div style={{paddingTop: "80px"}}>
+            <div style={{ paddingTop: "80px" }}>
                 <Outlet />
             </div>
         </>
@@ -45,6 +47,19 @@ export const router = createBrowserRouter([
                     {
                         path: "update/:id",
                         element: <UpdateMemberForm />
+                    }
+                ]
+            },
+            {
+                path: "case",
+                children: [
+                    {
+                        path: "",
+                        element: <Cases />
+                    },
+                    {
+                        path: "create",
+                        element: <CreateCaseForm />
                     }
                 ]
             },

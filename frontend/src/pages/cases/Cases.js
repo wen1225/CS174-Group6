@@ -13,17 +13,20 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined'
+import { useNavigate } from 'react-router-dom'
 
-import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 
 
-
-export default function Cases() {
+export function Cases() {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const navigate = useNavigate();
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+        navigate('/case/create');
     }
 
     const handleClose = () => {
@@ -60,12 +63,11 @@ export default function Cases() {
     ];
 
     return (
-        <Paper elevation={3} sx={{m: '2vh'}}>
+        <Paper elevation={3} sx={{ m: '2vh' }}>
             <Typography variant='h5' sx={{ p: '1vh' }}>Cases</Typography>
             <Box>
                 <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-                <Button variant='contained' component={Link} to='/case/create-case'
-                    sx={{ mt: 3, mb: 2, textTransform: 'none', float: 'right' }}>Create Case</Button>
+                <Button variant='contained' sx={{ mt: 3, mb: 2, textTransform: 'none', float: 'right' }} onClick={handleClick}>Create Case</Button>
             </Box>
         </Paper>
     )
