@@ -73,8 +73,8 @@ export function MenuBar() {
                             open={Boolean(anchorEl)}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={handleClose}>Login</MenuItem>
-                            <MenuItem onClick={handleClose}>Register</MenuItem>
+                            <MenuItem onClick={handleClose} component={Link} to='/auth/login'>Login</MenuItem>
+                            <MenuItem onClick={handleClose} component={Link} to='/auth/register'>Register</MenuItem>
                         </Menu>
                     </div>
             </Toolbar>

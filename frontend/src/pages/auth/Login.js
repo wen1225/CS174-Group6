@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import {CreateAccount} from './CreateAccount';
+import axios, { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
     // Declaring state variables using the 'useState' hook
@@ -9,6 +11,7 @@ export function Login() {
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showCreateAccount, setShowCreateAccount] = useState(false);
+    const navigate = useNavigate();
 
     // Event handlers to update state variables when the input fields change
     const handleUsernameChange = (event) => {
@@ -22,7 +25,7 @@ export function Login() {
     };
 
     // Event handler to handle form submission
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
         if (!username) {
             setUsernameError(true);
@@ -31,7 +34,25 @@ export function Login() {
             setPasswordError(true);
         }
         if (username && password) {
-            // Handle login logic here
+
+            const HTTP_REQ_DATA = {
+                "username": username,
+                "password": password
+            }
+
+            try{
+                const HTTP_RES = (await axios.post(`${process.env["REACT_APP_SERVER_URL"]}/auth/login`, HTTP_REQ_DATA));
+                navigate("/")
+            } catch (err) {
+                if (err instanceof AxiosError) {
+                    if (err.response.status === 401) {
+                        alert("Wrong Login Credential")
+                    } else {
+                        throw Error("Unknown login problem")
+                    }
+                }
+            }
+
         }
     };
 

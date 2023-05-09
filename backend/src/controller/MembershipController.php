@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class MembershipController
 {
     private $members;
-    private $filePath = __DIR__ . '/members.json';
+    private $filePath = __DIR__ . '/../data/members.json';
 
     public function __construct()
     {

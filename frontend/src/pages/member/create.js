@@ -14,11 +14,15 @@ import Radio from '@mui/material/Radio'
 import Paper from '@mui/material/Paper'
 import { createTheme, ThemeProvider} from '@mui/material/styles'
 import { useState } from 'react'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+
 
 const theme = createTheme()
 
 export function CreateMemberForm() {
     const[gender, setGender] = useState("")
+    const navigate = useNavigate();
 
     const handleGenderChange = (event) => {
         setGender(event.target.value)
@@ -27,12 +31,24 @@ export function CreateMemberForm() {
     const handleSubmit = (event) => {
         event.preventDefault()
         const formData = new FormData(event.currentTarget)
-        console.log({
-          firstName: formData.get("firstName"),
-          lastName: formData.get("lastName"),
-          birthday: formData.get("birthday"),
-          gender: gender,
-        })
+
+        const HTTP_REQ_DATA = {
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
+            birthday: formData.get("birthday"),
+            gender: gender,
+            remarks: formData.get("remark"),
+            email: formData.get("email"),
+            phone: formData.get("phone").toString()
+          
+          }
+
+        console.log(HTTP_REQ_DATA)
+
+        axios.post(`${process.env["REACT_APP_SERVER_URL"]}/membership`, HTTP_REQ_DATA)
+
+        navigate("/member")
+
     }
 
     return (
@@ -96,7 +112,7 @@ export function CreateMemberForm() {
                             fullWidth
                             id="birthday"
                             name="birthday"
-                            type="datetime-local"
+                            type="date"
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -118,6 +134,52 @@ export function CreateMemberForm() {
                                 <FormControlLabel value="Other" control={<Radio required={true}/>} label="Other" />
                             </RadioGroup>
                             </FormControl>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Email
+                            </Typography>
+                            <TextField
+                            required
+                            fullWidth
+                            id="email"
+                            name="email"
+                            type="email"
+                            label="Email"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Phone
+                            </Typography>
+                            <TextField
+                            required
+                            fullWidth
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            label="Phone"
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography
+                                textAlign="left"
+                                fontWeight="bold"
+                            >
+                                Remark
+                            </Typography>
+                            <TextField
+                            fullWidth
+                            id="remark"
+                            name="remark"
+                            type="text"
+                            />
                         </Grid>
                         </Grid>
                         <Box
