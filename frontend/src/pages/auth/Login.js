@@ -102,7 +102,7 @@ export function Login() {
                             variant="contained"
                             fullWidth
                             sx={{ mt: 2, backgroundColor: "#084b83" }}
-                            onClick={handleCreateAccount}
+                            onClick={()=>navigate("/auth/register")}
                         >
                             Create Account
                         </Button>
