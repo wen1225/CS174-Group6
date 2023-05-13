@@ -1,1 +1,64 @@
-{"6459a1b26ad3a":{"title":"Internet Connectivity Issue","startDate":"2023-03-04","isCaseClosed":true,"endDate":"2023-04-05","associatedMemberId":"6459a09861f73","Description":"Customer reported internet connectivity issue. Troubleshooted and resolved by resetting the modem."},"6459a1b26ad4c":{"title":"Payment Dispute","startDate":"2023-03-06","isCaseClosed":true,"endDate":"2023-03-15","associatedMemberId":"6459a09861f73","Description":"Customer disputed a charge on their account. Investigated and determined that the charge was valid."},"6459a1b26ad8e":{"title":"Account Access Issue","startDate":"2023-03-12","isCaseClosed":true,"endDate":"2023-03-15","associatedMemberId":"6459a09861f73","Description":"Customer reported being unable to access their account. Reset their password and resolved the issue."},"6459a1b26adfe":{"title":"Product Return Request","startDate":"2023-03-18","isCaseClosed":false,"associatedMemberId":"6459a09861f73","Description":"Customer requested to return a product due to defects. Sent them a return label and currently awaiting the product's return."},"6459a1b26ae1d":{"title":"Billing Inquiry","startDate":"2023-03-22","isCaseClosed":true,"endDate":"2023-03-25","associatedMemberId":"6459a09861f73","Description":"Customer had questions about their bill. Reviewed and explained the charges to them."},"6459a1b26ae45":{"title":"Shipping Delay","startDate":"2023-03-25","isCaseClosed":false,"associatedMemberId":"6459a09861f73","Description":"Customer reported not receiving their order on time. Investigated and found that there was a delay in shipping. Contacted the shipping carrier and provided an updated delivery estimate to the customer."},"6459a1b26ae6c":{"title":"Product Recommendation","startDate":"2023-03-28","isCaseClosed":true,"endDate":"2023-03-29","associatedMemberId":"6459a09861f73","Description":"Customer requested a product recommendation. Suggested a product that met their needs and provided additional information about the product."},"6459a1b26ae87":{"title":"Service Outage","startDate":"2023-03-30","isCaseClosed":false,"associatedMemberId":"6459a09861f73","Description":"Customer reported a service outage. Investigating the issue and working on restoring service."}}
+{
+    "6459a1b26ad3a": {
+        "title": "Internet Connectivity Issue",
+        "startDate": "2023-03-04",
+        "isCaseClosed": true,
+        "endDate": "2023-04-05",
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer reported internet connectivity issue. Troubleshooted and resolved by resetting the modem."
+    },
+    "6459a1b26ad4c": {
+        "title": "Payment Dispute",
+        "startDate": "2023-03-06",
+        "isCaseClosed": true,
+        "endDate": "2023-03-15",
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer disputed a charge on their account. Investigated and determined that the charge was valid."
+    },
+    "6459a1b26ad8e": {
+        "title": "Account Access Issue",
+        "startDate": "2023-03-12",
+        "isCaseClosed": true,
+        "endDate": "2023-03-15",
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer reported being unable to access their account. Reset their password and resolved the issue."
+    },
+    "6459a1b26adfe": {
+        "title": "Product Return Request",
+        "startDate": "2023-03-18",
+        "isCaseClosed": false,
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer requested to return a product due to defects. Sent them a return label and currently awaiting the product's return."
+    },
+    "6459a1b26ae1d": {
+        "title": "Billing Inquiry",
+        "startDate": "2023-03-22",
+        "isCaseClosed": true,
+        "endDate": "2023-03-25",
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer had questions about their bill. Reviewed and explained the charges to them."
+    },
+    "6459a1b26ae45": {
+        "title": "Shipping Delay",
+        "startDate": "2023-03-25",
+        "isCaseClosed": false,
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer reported not receiving their order on time. Investigated and found that there was a delay in shipping. Contacted the shipping carrier and provided an updated delivery estimate to the customer."
+    },
+    "6459a1b26ae6c": {
+        "title": "Product Recommendation",
+        "startDate": "2023-03-28",
+        "isCaseClosed": true,
+        "endDate": "2023-03-29",
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer requested a product recommendation. Suggested a product that met their needs and provided additional information about the product."
+    },
+    "6459a1b26ae87": {
+        "title": "Service Outage",
+        "startDate": "2023-03-30",
+        "isCaseClosed": false,
+        "associatedMemberId": "6459a09861f73",
+        "Description": "Customer reported a service outage. Investigating the issue and working on restoring service."
+    }
+}
+
