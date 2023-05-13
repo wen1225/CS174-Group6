@@ -1,0 +1,34 @@
+@media (min-width: 1025px) {
+    button.create#member {
+        width: 160px;
+
+        p {
+            width: 100px;
+        }
+
+    }
+}
+
+@media (min-width: 200px) and (max-width:1355px) {
+    div.page#create-member {
+        height: 1000px;
+        padding-top: 0;
+    }
+
+    div.page#update-member {
+        height: 1000px;
+        padding-top: 0;
+    }
+}
+
+@media (min-width: 1356px) {
+
+    div.page#create-member {
+        height: 800px;
+        padding-top: 0;
+    }
+    div.page#update-member {
+        height: 800px;
+        padding-top: 0;
+    }
+}

@@ -1,131 +1,228 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import { Typography } from '@mui/material';
-import { Grid } from '@mui/material';
-import { Button, Paper } from '@mui/material';
-import { styled } from '@mui/system';
-import { makeStyles } from '@material-ui/styles';
-import Image from '../background.jpeg';
 import { useState, useEffect } from 'react';
 import axios from 'axios'
+import "./styles/homepage.scss";
+import memberIcon from './img/group-chat.png'
+import openCaseIcon from './img/checked.png'
+import closedCaseIcon from './img/pending-case.png'
+import { DataGrid } from '@mui/x-data-grid'
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link, useNavigate } from 'react-router-dom'
+import IconButton from '@mui/material/IconButton'
+import "./styles/page.scss"
+import caseIcon from './img/case-study.png'
+import peopleIcon from './img/people.png'
+import plusIcon from './img/plus.png'
 
+function CaseDataList() {
+
+    const [caseList, setCaseList] = React.useState([]);;
+
+    const fetchCases = async () => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/case`)).data;
+
+        const tempList = [...caseList];
+
+        Object.keys(HTTP_RES).forEach((caseId) => {
+            const CASE_INFO = HTTP_RES[caseId];
+
+            tempList.push({
+                id: caseId,
+                title: CASE_INFO["title"],
+                status: CASE_INFO["isCaseClosed"] ? "Open" : "Closed",
+            })
+
+            setCaseList(tempList);
+        })
+    }
+
+
+    const columns = [
+        {
+            field: 'id', headerName: 'Case ID', width: 120, renderCell: (params) =>
+                <Link to={`/case/update/${params.id}`} className="list-item">${params.id}</Link>
+        },
+        { field: 'title', headerName: 'Title', width: 200 },
+        { field: 'status', headerName: 'Status', width: 80 },
+    ];
+
+    useEffect(() => {
+        fetchCases()
+    }, [])
+
+    return (
+        <div className="home-case-list">
+            <DataGrid rows={caseList}
+                columns={columns}
+                pageSizeOptions={[5]}
+                disableMultipleRowSelection={true}
+                hideFooter={true} />
+        </div>
+    )
+}
+
+function MemberDataList() {
+
+    const [memberList, setMemberList] = React.useState([]);
+
+    const fetchMember = async () => {
+        const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership`)).data;
+
+        const tempList = [...memberList];
+
+        Object.keys(HTTP_RES).forEach((memberId) => {
+            const MEMBER_INfO = HTTP_RES[memberId];
+
+            tempList.push({
+                id: memberId,
+                firstName: MEMBER_INfO["firstName"],
+                lastName: MEMBER_INfO["lastName"],
+                gender: MEMBER_INfO["gender"]
+            })
+
+            setMemberList(tempList);
+        })
+    }
+
+    const columns = [
+        {
+            field: "id", headerName: "ID", width: 120, renderCell: (params) =>
+                <Link to={`/member/update/${params.id}`} className="list-item">${params.id}</Link>
+        },
+        { field: "firstName", headerName: "First Name", width: 120 },
+        { field: "lastName", headerName: "Last Name", width: 120 },
+        { field: "gender", headerName: "Gender", width: 90 },
+    ]
+
+    useEffect(() => {
+        fetchMember()
+    }, [])
+
+
+    return (
+        <div className="home-case-list">
+            <DataGrid rows={memberList}
+                columns={columns}
+                pageSizeOptions={[5]}
+                disableMultipleRowSelection={true}
+                hideFooter={true} />
+        </div>
+    )
+}
+
+
+function DataSection() {
+    const navigate = useNavigate();
+    return (
+        <section id="data">
+            <div className="data-container">
+                <div className="heading">
+                    <img src={caseIcon} className='icon' />
+                    <h1 className="title">
+                        Cases
+                    </h1>
+                    <button className='add' onClick={(e)=>{navigate("case/create")}}>
+                        <img src={plusIcon} className='add' />
+                        <p>Create</p>
+                    </button>
+
+                </div>
+                <CaseDataList />
+            </div>
+            <div className="data-container">
+                <div className="heading">
+                    <img src={peopleIcon} className='icon' />
+                    <h1 className="title">
+                        Members
+                    </h1>
+                    <button className='add' onClick={(e)=>{navigate("member/create")}}>
+                        <img src={plusIcon} className='add' />
+                        <p>Create</p>
+                    </button>
+                </div>
+                <MemberDataList />
+            </div>
+        </section>
+    )
+}
 
 export function Homepage() {
 
-    const [caseCount, setCaseCount] = useState(0);
+    const [closedCaseCount, setClosedCaseCount] = useState(0);
     const [memberCount, setMemberCount] = useState(0);
+    const [openCaseCount, setOpenCaseCount] = useState(0);
 
-    const fetchCases = async() =>{
+    const fetchCases = async () => {
         const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/case`)).data;
-        console.log(Object.keys(HTTP_RES).length)
-        setCaseCount(Object.keys(HTTP_RES).length);
+
+        let closedCases = 0;
+        let openCases = 0;
+
+        for (const CASE_KEY in HTTP_RES) {
+            const CASE = HTTP_RES[CASE_KEY];
+            console.log(CASE)
+            const IS_CASE_CLOSED = CASE["isCaseClosed"];
+
+            if (IS_CASE_CLOSED) {
+                closedCases += 1;
+            } else {
+                openCases += 1;
+            }
+        }
+
+        setClosedCaseCount(closedCases);
+        setOpenCaseCount(openCases);
 
     }
 
-    const fetchMembers = async() => {
+    const fetchMembers = async () => {
         const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership`)).data;
-        console.log(Object.keys(HTTP_RES).length)
         setMemberCount(Object.keys(HTTP_RES).length);
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchCases()
         fetchMembers()
     }, [])
 
     return (
-        <Box>
-            <Box
-                sx={{
-                    position: 'relative',
-                    backgroundImage: `url(${Image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    height: 'calc(100vh - 64px)',
-                    marginBottom: '-64px',
-                }}
-            >
-                <Container
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '50%',
-                    }}
-                >
-                    <div style={{height:" 50%"}}>
-                    <Typography variant="h2" component="h2" align="left" gutterBottom sx={{color: 'white'}}>
-                        Customer Relationship Management
-                    </Typography>
+        <div className='page' id="homepage">
+            <section id="info">
+                <div className="info-box" id="closed-case">
+                    <img src={openCaseIcon} className="icon" />
+                    <div className="number-info">
+                        <p className="title">
+                            Number of closed cases
+                        </p>
+                        <p className="number">
+                            {closedCaseCount}
+                        </p>
                     </div>
-
-                    </Container>
-                    <Container
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '50%',
-                    }}
-                >
-                    <Grid>
-                    <Box> 
-                    <Typography variant="h3" component="h3" textAlign="center" gutterBottom sx={{color: 'white'}}>
-                    Number of Cases: {caseCount}
-                    </Typography>
-                    </Box>
-                    <Box>
-                    <Typography variant="h3" component="h3" textAlign="center" gutterBottom sx={{color: 'white'}}>
-                    Number of Members: {memberCount}
-                    </Typography>
-                    </Box>
-                    </Grid>
-
-                    </Container>
-            </Box>
-            <Container sx={{ marginTop: '64px' }}>
-                <Grid container spacing={4} justifyContent="center">
-                    <Grid item xs={12} sm={6} md={4}>
-                        <Typography variant="h5" component="h2" gutterBottom>
-                            Help Solve Customer Concerns
-                        </Typography>
-                        <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                            We provide a platform for customers to publish the problems they're facing and our agents will pick up the case and resolve it.
-                        </Typography>
-                        <Button variant="contained" color="secondary">
-                            Get Started Here
-                        </Button>
-
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-                        <Typography variant="h5" component="h2" gutterBottom>
-                            Reliable 1-day* Turnover
-                        </Typography>
-                        <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                            Our agents are technical specialists. Once they pick up a case, you can expect the issue to be resolved in a matter of days - as early as one day.
-                        </Typography>
-                        <Button variant="contained" color="secondary">
-                            Learn More
-                        </Button>
-
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={4}>
-
-                        <Typography variant="h5" component="h2" gutterBottom>
-                            Automate Your Marketing
-                        </Typography>
-                        <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                            Create and automate marketing campaigns that engage your customers and drive sales. Send targeted
-                            emails, schedule social media posts, and more.
-                        </Typography>
-                        <Button variant="contained" color="secondary">
-                            Learn More
-                        </Button>
-
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
+                </div>
+                <div className="info-box" id="open-case">
+                    <img src={closedCaseIcon} className="icon" />
+                    <div className="number-info">
+                        <p className="title">
+                            Number of open cases
+                        </p>
+                        <p className="number">
+                            {openCaseCount}
+                        </p>
+                    </div>
+                </div>
+                <div className="info-box" id="member">
+                    <img src={memberIcon} className="icon" />
+                    <div className="number-info">
+                        <p className="title">
+                            Number of members
+                        </p>
+                        <p className="number">
+                            {memberCount}
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <DataSection />
+        </div>
     )
 }

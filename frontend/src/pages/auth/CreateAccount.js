@@ -76,75 +76,78 @@ export function CreateAccount() {
             password === confirmPassword
         ) {
             // handle create account logic here
-            console.log('Account created successfully!');
+            alert('Only administrators can create accounts');
         }
     };
 
     // Return the JSX to render the Create Account form
     return (
-        <Container maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
-            <form onSubmit={handleCreateAccount}>
-                <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '22px' }}>Create Account</Typography>
-                <TextField
-                    label="First Name"
-                    fullWidth
-                    required
-                    value={firstName}
-                    onChange={handleFirstNameChange}
-                    error={firstNameError}
-                    helperText={firstNameError && 'Please enter your first name'}
-                    margin="normal"
-                />
-                {/* Add similar code for the last name text field, email text field, password text field, and confirmation text field */}
-                <TextField
-                    label="Last Name"
-                    fullWidth
-                    required
-                    value={lastName}
-                    onChange={handleLastNameChange}
-                    error={lastNameError}
-                    helperText={lastNameError && 'Please enter your last name'}
-                    margin="normal"
-                />
-                <TextField
-                    label="Email"
-                    fullWidth
-                    type="email"
-                    required
-                    value={email}
-                    onChange={handleEmailChange}
-                    error={emailError}
-                    helperText={emailError && 'Please enter a valid email address'}
-                    margin="normal"
-                />
-                <TextField
-                    label="Password"
-                    fullWidth
-                    type="password"
-                    required
-                    value={password}
-                    onChange={handlePasswordChange}
-                    error={passwordError}
-                    helperText={
-                        passwordError
-                            ? 'Please enter a password between 8 and 20 characters'
-                            : 'Your password must be between 8 and 20 characters'
-                    }
-                    margin="normal"
-                />
-                <TextField
-                    label="Confirm Password"
-                    fullWidth
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={handleConfirmPasswordChange}
-                    error={confirmPasswordError}
-                    helperText={confirmPasswordError && 'Please confirm your password'}
-                    margin="normal"
-                />
-                <Button variant="contained" type="submit" fullWidth sx={{ mt: 2, mb: 1, marginTop: '30px' }}>Create Account</Button>
-            </form>
-        </Container>
+        <div className="page" id="create-member">
+            <Container maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
+                <form onSubmit={handleCreateAccount}>
+                    <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '22px' }}>Create Account</Typography>
+                    <TextField
+                        label="First Name"
+                        fullWidth
+                        required
+                        value={firstName}
+                        onChange={handleFirstNameChange}
+                        error={firstNameError}
+                        helperText={firstNameError && 'Please enter your first name'}
+                        margin="normal"
+                    />
+                    {/* Add similar code for the last name text field, email text field, password text field, and confirmation text field */}
+                    <TextField
+                        label="Last Name"
+                        fullWidth
+                        required
+                        value={lastName}
+                        onChange={handleLastNameChange}
+                        error={lastNameError}
+                        helperText={lastNameError && 'Please enter your last name'}
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Email"
+                        fullWidth
+                        type="email"
+                        required
+                        value={email}
+                        onChange={handleEmailChange}
+                        error={emailError}
+                        helperText={emailError && 'Please enter a valid email address'}
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Password"
+                        fullWidth
+                        type="password"
+                        required
+                        value={password}
+                        onChange={handlePasswordChange}
+                        error={passwordError}
+                        helperText={
+                            passwordError
+                                ? 'Please enter a password between 8 and 20 characters'
+                                : 'Your password must be between 8 and 20 characters'
+                        }
+                        margin="normal"
+                    />
+                    <TextField
+                        label="Confirm Password"
+                        fullWidth
+                        type="password"
+                        required
+                        value={confirmPassword}
+                        onChange={handleConfirmPasswordChange}
+                        error={confirmPasswordError}
+                        helperText={confirmPasswordError && 'Please confirm your password'}
+                        margin="normal"
+                    />
+                    <Button variant="contained" type="submit" fullWidth sx={{ mt: 2, mb: 1, marginTop: '30px', backgroundColor: "#42bfdd" }}>Create Account</Button>
+                </form>
+            </Container>
+        </div>
+
     );
 }

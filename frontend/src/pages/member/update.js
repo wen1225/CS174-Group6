@@ -12,18 +12,18 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import RadioGroup from '@mui/material/RadioGroup'
 import Radio from '@mui/material/Radio'
 import Paper from '@mui/material/Paper'
-import { createTheme, ThemeProvider} from '@mui/material/styles'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
-
+import "./styles/member.scss"
 
 
 const theme = createTheme()
 
 export function UpdateMemberForm() {
-    const[gender, setGender] = useState("")
+    const [gender, setGender] = useState("")
     const { id } = useParams();
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
@@ -49,8 +49,8 @@ export function UpdateMemberForm() {
             remarks: formData.get("remark"),
             email: formData.get("email"),
             phone: formData.get("phone").toString()
-          
-          }
+
+        }
 
         console.log(HTTP_REQ_DATA)
 
@@ -66,7 +66,7 @@ export function UpdateMemberForm() {
         navigate("/member")
     }
 
-    const fetchMemberInfo = async() => {
+    const fetchMemberInfo = async () => {
         const HTTP_RES = (await axios.get(`${process.env["REACT_APP_SERVER_URL"]}/membership/${id}`)).data;
 
         setGender(HTTP_RES["gender"])
@@ -79,174 +79,179 @@ export function UpdateMemberForm() {
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchMemberInfo();
     }, [])
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" sx={{maxWidth: "1000px"}}>
-                <CssBaseline />
-                <Box
-                sx={{
-                    marginTop: 5,
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-                >
-                    <Typography component="h1" variant="h5">
-                        Edit Member
-                    </Typography>
-                    <Paper sx={{padding: 3}}>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                        <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                First Name
-                            </Typography>
-                            <TextField
-                            autoComplete="given-name"
-                            name="firstName"
-                            required
-                            fullWidth
-                            id="firstName"
-                            value={firstName}
-                            onChange={(e)=>setFirstName(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                Last Name
-                            </Typography>
-                            <TextField
-                            required
-                            fullWidth
-                            id="lastName"
-                            name="lastName"
-                            autoComplete="family-name"
-                            value={lastName}
-                            onChange={(e)=>setLastName(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                Birthday
-                            </Typography>
-                            <TextField
-                            required
-                            fullWidth
-                            id="birthday"
-                            name="birthday"
-                            type="date"
-                            value={birthday}
-                            onChange={(e)=>setBirthday(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth>
-                            <FormLabel id="gender-label" sx={{
-                                textAlign: "left", 
-                                fontWeight: "bold"}}
-                            >
-                                Gender
-                            </FormLabel>
-                            <RadioGroup
-                                row
-                                name="gender-radio-group"
-                                value={gender}
-                                onChange={handleGenderChange}
-                            >
-                                <FormControlLabel value="Male" control={<Radio required={true}/>} label="Male" />
-                                <FormControlLabel value="Female" control={<Radio required={true}/>} label="Female" />
-                                <FormControlLabel value="Other" control={<Radio required={true}/>} label="Other" />
-                            </RadioGroup>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                Email
-                            </Typography>
-                            <TextField
-                            required
-                            fullWidth
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={email}
-                            onChange={(e)=>setEmail(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                Phone
-                            </Typography>
-                            <TextField
-                            required
-                            fullWidth
-                            id="phone"
-                            name="phone"
-                            type="tel"
-                            value={phone}
-                            onChange={(e)=>setPhone(e.target.value)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography
-                                textAlign="left"
-                                fontWeight="bold"
-                            >
-                                Remark
-                            </Typography>
-                            <TextField
-                            fullWidth
-                            id="remark"
-                            name="remark"
-                            type="text"
-                            value={remark}
-                            onChange={(e)=>setRemark(e.target.value)}
-                            />
-                        </Grid>
-                        </Grid>
-                        <Box
-                            component="div"
-                            sx={{display: "flex", justifyContent: "space-between"}}
-                        >
-                            <Button
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2, textTransform: 'none', backgroundColor: 'red'}}
-                                onClick={handleDelete}
-                            >
-                                Delete Member
-                            </Button>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 , textTransform: 'none'}}
-                            >
-                                Update
-                            </Button>
-                        </Box>
-                        
+        <div className='page' id="update-member">
+            <ThemeProvider theme={theme}>
+                <Container component="main" sx={{ maxWidth: "1000px" }}>
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 5,
+                            display: "flex",
+                            flexDirection: "column",
+                        }}
+                    >
+                        <div className='page-heading'>
+                            <h1 className="page-title">Edit Member</h1>
+
+                        </div>
+                        <Paper sx={{ padding: 3 }}>
+                            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            First Name
+                                        </Typography>
+                                        <TextField
+                                            autoComplete="given-name"
+                                            name="firstName"
+                                            required
+                                            fullWidth
+                                            id="firstName"
+                                            value={firstName}
+                                            onChange={(e) => setFirstName(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            Last Name
+                                        </Typography>
+                                        <TextField
+                                            required
+                                            fullWidth
+                                            id="lastName"
+                                            name="lastName"
+                                            autoComplete="family-name"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            Birthday
+                                        </Typography>
+                                        <TextField
+                                            required
+                                            fullWidth
+                                            id="birthday"
+                                            name="birthday"
+                                            type="date"
+                                            value={birthday}
+                                            onChange={(e) => setBirthday(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <FormControl fullWidth>
+                                            <FormLabel id="gender-label" sx={{
+                                                textAlign: "left",
+                                                fontWeight: "bold"
+                                            }}
+                                            >
+                                                Gender
+                                            </FormLabel>
+                                            <RadioGroup
+                                                row
+                                                name="gender-radio-group"
+                                                value={gender}
+                                                onChange={handleGenderChange}
+                                            >
+                                                <FormControlLabel value="Male" control={<Radio required={true} />} label="Male" />
+                                                <FormControlLabel value="Female" control={<Radio required={true} />} label="Female" />
+                                                <FormControlLabel value="Other" control={<Radio required={true} />} label="Other" />
+                                            </RadioGroup>
+                                        </FormControl>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            Email
+                                        </Typography>
+                                        <TextField
+                                            required
+                                            fullWidth
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            Phone
+                                        </Typography>
+                                        <TextField
+                                            required
+                                            fullWidth
+                                            id="phone"
+                                            name="phone"
+                                            type="tel"
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Typography
+                                            textAlign="left"
+                                            fontWeight="bold"
+                                        >
+                                            Remark
+                                        </Typography>
+                                        <TextField
+                                            fullWidth
+                                            id="remark"
+                                            name="remark"
+                                            type="text"
+                                            value={remark}
+                                            onChange={(e) => setRemark(e.target.value)}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <Box
+                                    component="div"
+                                    sx={{ display: "flex", justifyContent: "space-between" }}
+                                >
+                                    <Button
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2, textTransform: 'none', backgroundColor: 'red' }}
+                                        onClick={handleDelete}
+                                    >
+                                        Delete Member
+                                    </Button>
+                                    <Button
+                                        type="submit"
+                                        variant="contained"
+                                        sx={{ mt: 3, mb: 2, textTransform: 'none' }}
+                                    >
+                                        Update
+                                    </Button>
+                                </Box>
+
+                            </Box>
+                        </Paper>
                     </Box>
-                    </Paper>
-                </Box>
-                
-      </Container>
-    </ThemeProvider>
+
+                </Container>
+            </ThemeProvider>
+        </div>
+
     )
 }

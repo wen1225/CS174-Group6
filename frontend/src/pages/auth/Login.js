@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
-import {CreateAccount} from './CreateAccount';
+import { CreateAccount } from './CreateAccount';
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ export function Login() {
                 "password": password
             }
 
-            try{
+            try {
                 const HTTP_RES = (await axios.post(`${process.env["REACT_APP_SERVER_URL"]}/auth/login`, HTTP_REQ_DATA));
                 navigate("/")
             } catch (err) {
@@ -63,55 +63,56 @@ export function Login() {
 
     // Rendering the Login component
     return (
-        <Container maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
-            {!showCreateAccount ? (
-                // Login form with input fields and buttons
-                <form onSubmit={handleLogin}>
-                    <Typography variant="h2" sx={{ textAlign: 'center', marginBottom: '22px' }}>CRM</Typography>
-                    <TextField
-                        label="Username"
-                        fullWidth
-                        margin="normal"
-                        value={username}
-                        onChange={handleUsernameChange}
-                        error={usernameError}
-                        helperText={usernameError ? 'Please enter a username' : ''}
-                    />
-                    <TextField
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        margin="normal"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        error={passwordError}
-                        helperText={passwordError ? 'Please enter a password' : ''}
-                    />
+        <div className="page">
+            <Container maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
+                {!showCreateAccount ? (
+                    // Login form with input fields and buttons
+                    <form onSubmit={handleLogin}>
+                        <Typography variant="h2" sx={{ textAlign: 'center', marginBottom: '22px' }}>CRM</Typography>
+                        <TextField
+                            label="Username"
+                            fullWidth
+                            margin="normal"
+                            value={username}
+                            onChange={handleUsernameChange}
+                            error={usernameError}
+                            helperText={usernameError ? 'Please enter a username' : ''}
+                        />
+                        <TextField
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            margin="normal"
+                            value={password}
+                            onChange={handlePasswordChange}
+                            error={passwordError}
+                            helperText={passwordError ? 'Please enter a password' : ''}
+                        />
 
-                    <Button
-                        variant="contained"
-                        type="submit"
-                        color="primary"
-                        fullWidth
-                        sx={{ mt: 2 }}
-                    >
-                        Login
-                    </Button>
+                        <Button
+                            variant="contained"
+                            type="submit"
+                            fullWidth
+                            sx={{ mt: 2, backgroundColor: "#42bfdd" }}
+                        >
+                            Login
+                        </Button>
 
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        fullWidth
-                        sx={{ mt: 2 }}
-                        onClick={handleCreateAccount}
-                    >
-                        Create Account
-                    </Button>
-                </form>
-            ) : (
-                // Showing the 'CreateAccount' component
-                <CreateAccount />
-            )}
-        </Container>
+                        <Button
+                            variant="contained"
+                            fullWidth
+                            sx={{ mt: 2, backgroundColor: "#084b83" }}
+                            onClick={handleCreateAccount}
+                        >
+                            Create Account
+                        </Button>
+                    </form>
+                ) : (
+                    // Showing the 'CreateAccount' component
+                    <CreateAccount />
+                )}
+            </Container>
+        </div>
+
     );
 }
