@@ -26,7 +26,7 @@ export function UpdateCaseForm() {
         event.preventDefault();
         const form = new FormData(event.currentTarget)
 
-        const CASE = isCaseClosed ? "closed" : "open"
+        const CASE = form.get("isCaseClosed") === "true" ? true : false;
 
         const HTTP_REQ_DATA = {
             "title": title,
@@ -37,6 +37,8 @@ export function UpdateCaseForm() {
             "Description": description
 
         }
+
+        console.log(HTTP_REQ_DATA)
 
         axios.put(`${process.env["REACT_APP_SERVER_URL"]}/case/${id}`, HTTP_REQ_DATA)
         navigate("/case")
