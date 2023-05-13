@@ -82,7 +82,7 @@ export function CreateAccount() {
 
     // Return the JSX to render the Create Account form
     return (
-        <div className="page" id="create-member">
+        <div className="page" id="create-member" style={{paddingTop: "100px"}}>
             <Container maxWidth="xs" sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '75vh' }}>
                 <form onSubmit={handleCreateAccount}>
                     <Typography variant="h3" sx={{ textAlign: 'center', marginBottom: '22px' }}>Create Account</Typography>
