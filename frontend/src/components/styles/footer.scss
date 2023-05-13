@@ -1,0 +1,43 @@
+footer {
+    height: 100px;
+    width: 100%;
+    background-color: #bbe6e4;
+    box-sizing: border-box;
+    padding: 20px 30px;
+    position: relative;
+    z-index: 500;
+
+    nav {
+        position: absolute;
+        top: 40px;
+
+        a.link {
+            display: inline-block;
+            margin: 0 10px;
+            text-decoration: none;
+            color: grey;
+        }
+        a.link:hover {
+            cursor: pointer;
+        }
+    }
+
+    p#copyright {
+        display: block;
+        position: relative;
+        color: grey;
+        float: right;
+    }
+
+    @media (min-width: 200px) {
+        nav {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1025px) {
+        nav {
+            display: block;
+        }
+    }
+}

@@ -1,0 +1,187 @@
+menu#main {
+    height: 60px;
+    width: 100%;
+    background-color: #084b83;
+    margin: 0;
+    padding: 20px 30px;
+    box-sizing: border-box;
+    color: white;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 3px black;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    a#site-name {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    nav#main {
+        width: 160px;
+        height: 50px;
+        position: absolute;
+        right: 70px;
+        top: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+
+        a {
+            height: 100%;
+            display: block;
+            margin: 0 10px;
+        }
+
+        a:hover {
+            filter: brightness(0.9);
+        }
+    }
+
+    div#user-setting {
+        width: 35px;
+        height: 100%;
+        position: absolute;
+        right: 40px;
+        top: 22px;
+        display: block;
+
+        img#user {
+            position: relative;
+            left: 10px;
+            width: 17px;
+            filter: invert(1);
+        }
+
+        img#user:hover {
+            cursor: pointer;
+        }
+
+        menu#user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 25px;
+            width: 120px;
+            height: 100px;
+            background-color: #F0F6F6;
+            box-shadow: 0 3px 3px gray;
+            box-sizing: border-box;
+            padding: 0;
+
+            a.usr-drop-link {
+                font-size: 14px;
+                margin: 0;
+                color: black;
+                width: 120px;
+                height: 40px;
+                display: block;
+                box-sizing: border-box;
+                text-align: center;
+                padding: 11px 0;
+                border-bottom: 1px solid gray;
+            }
+
+            a.usr-drop-link:hover {
+                filter: brightness(1.1);
+                color: rgb(49, 49, 49);
+            }
+
+
+        }
+    }
+
+    div#user-setting:hover menu#user-dropdown{
+        display: block;
+    } 
+
+    div#mobile-menu {
+        width: 23px;
+        height: 23px;
+        position: absolute;
+        right: 30px;
+        top: 20px;
+        img#icon {
+            width: 100%;
+            filter: invert(1);
+        }
+        overflow: visible;
+
+        img#icon:hover {
+            cursor: pointer;
+        }
+
+    }
+
+    div#full-screen-menu {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        width: 100vw;
+        height: 100vh;
+        background-color: #084b83;
+        padding: 40px 30px;
+        margin: 0;
+        box-sizing: border-box;
+
+        h1#mobile-site-name {
+            width: 80%;
+        }
+
+        img#close-menu {
+            width: 25px;
+            height: 25px;
+            filter: invert(1);
+            position: absolute;
+            top: 80px;
+            right: 40px;
+        }
+
+        img#close-menu:hover {
+            cursor: pointer;
+        }
+
+        nav#mobile {
+            position: absolute;
+            top: 230px;
+            left: 50%;
+            transform: translate(-50%,0);
+            height: 200px;
+            width: 70%;
+
+            a.mobile {
+                text-align: center;
+                width: 100%;
+                display: block;
+                font-size: 22px;
+                padding: 20px 0;
+                margin: 0;
+                border-bottom: 1px solid #F0F6F6;
+            }
+
+            a.mobile:hover {
+                background-color: #F0F6F6;
+                color: black;
+            }
+        }
+    }
+
+    @media (min-width: 200px) {
+        nav#main { display: none; }
+        div#user-setting { display: none; }
+        div#mobile-menu { display: block; }
+    }
+
+    @media (min-width: 600px) {
+        nav#main { display: flex; }
+       div#mobile-menu { display: none;}
+       div#full-screen-menu { display: none; }
+       div#user-setting { display: block; }
+      }
+}

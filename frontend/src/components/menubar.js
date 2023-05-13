@@ -1,83 +1,46 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import React from 'react';
-import { Menu } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState } from 'react';
+import "./styles/menubar.scss"
+import userIcon from './img/user.png'
+import mobileMenuIcon from './img/mobile-menu.png'
+import closeMobileMenuIcon from './img/close-menu.png'
 
 export function MenuBar() {
-    const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    const [isShowFullMobileMenu, setIsShowFullMobileMenu] = useState(false);
 
     return (
-        <AppBar component="nav">
-            <Toolbar>
-                <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, cursor: 'pointer' }}
-                    onClick={() => { navigate("/") }}
-                >
-                    Customer Relationship Management
-                </Typography>
-                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                    <Button sx={{ color: '#fff' }} component={Link} to={{
-                        pathname: `/member/`,
-                    }}>
-                        Membership
-                    </Button>
-                    <Button sx={{ color: '#fff' }} component={Link} to={{
-                        pathname: `/case/`,
-                    }}>
-                        Case
-                    </Button>
-                
-                </Box>
-                <div>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenu}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose} component={Link} to='/auth/login'>Login</MenuItem>
-                            <MenuItem onClick={handleClose} component={Link} to='/auth/register'>Register</MenuItem>
-                        </Menu>
-                    </div>
-            </Toolbar>
-        </AppBar>
+        <menu id="main">
+            <Link id="site-name" to="">
+                Customer Relationship Management
+            </Link>
+            <nav id="main">
+                <Link to="case">Case</Link>
+                <Link to="member">Member</Link>
+            </nav>
+            <div id="user-setting">
+                <img src={userIcon} id="user" />
+                <menu id="user-dropdown">
+                    <Link to="auth/login" className="usr-drop-link">Login</Link>
+                    <Link to="auth/register" className="usr-drop-link">Register</Link>
+                </menu>
+            </div>
+            <div id="mobile-menu">
+                <img src={mobileMenuIcon} id="icon" onClick={()=>{setIsShowFullMobileMenu(true)}}/>
+
+            </div>
+            {
+                isShowFullMobileMenu ? <div id="full-screen-menu">
+                    <h1 id="mobile-site-name">Customer Relationship Management</h1>
+                    <img src={closeMobileMenuIcon} id="close-menu" onClick={()=>{setIsShowFullMobileMenu(false)}}/>
+                    <nav id="mobile">
+                        <Link to="case" className='mobile' onClick={()=>{setIsShowFullMobileMenu(false)}}>Case</Link>
+                        <Link to="member" className='mobile' onClick={()=>{setIsShowFullMobileMenu(false)}}>Member</Link>
+                        <Link to="auth/login" className='mobile' onClick={()=>{setIsShowFullMobileMenu(false)}}>Login</Link>
+                        <Link to="auth/register" className='mobile' onClick={()=>{setIsShowFullMobileMenu(false)}}>Register</Link>
+                    </nav>
+                </div> : null
+            }
+        </menu>
     )
 }

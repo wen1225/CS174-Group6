@@ -8,6 +8,8 @@ import { useState } from "react";
 import { Select } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom'
+import "../styles/page.scss"
+import "./styles/cases.scss"
 
 
 export function CreateCaseForm() {
@@ -54,93 +56,99 @@ export function CreateCaseForm() {
     }
 
     return (
-        <FormControl
-            sx={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                gridTemplateRows: 'repeat(4, auto)',
-                gridGap: 2,
-                justifyContent: 'center',
-                alignItems: 'center',
-                '& > *': { m: 1 }
-            }}
-            onSubmit={handleSubmit}
-            component="form"
+        <div className="page" id="create-case">
+            <div className='page-heading'>
+                <h1 className="page-title">Create Case</h1>
+            </div>
+            <FormControl
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(1, 1fr)',
+                    gridTemplateRows: 'repeat(4, auto)',
+                    gridGap: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    '& > *': { m: 1 }
+                }}
+                onSubmit={handleSubmit}
+                component="form"
 
-        >
-            <TextField
-                name="caseTitle"
-                label="Case Title"
-                value={formData.caseTitle}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="caseDescription"
-                label="Case Description"
-                value={formData.caseDescription}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-
-            />
-            <TextField
-                name="associatedMemberId"
-                label="Associated Member ID"
-                value={formData.associatedMemberId}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="startDate"
-                label="Start Date"
-                type="date"
-                value={formData.startDate}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                InputProps={{
-                    inputProps: { max: formData.endDate },
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="endDate"
-                label="End Date"
-                type="date"
-                value={formData.endDate}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                InputProps={{
-                    inputProps: { min: formData.startDate },
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <Select
-                name="isCaseClosed"
-                label="Is Case Closed"
-                value={formData.status}
-                onChange={handleChange}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
             >
-                <MenuItem value={false}>Opened</MenuItem>
-                <MenuItem value={true}>Closed</MenuItem>
-            </Select>
-            <Button type="submit" variant="contained" sx={{ justifySelf: 'center' }}>Submit</Button>
-        </FormControl>
+                <TextField
+                    name="caseTitle"
+                    label="Case Title"
+                    value={formData.caseTitle}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="caseDescription"
+                    label="Case Description"
+                    value={formData.caseDescription}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+
+                />
+                <TextField
+                    name="associatedMemberId"
+                    label="Associated Member ID"
+                    value={formData.associatedMemberId}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="startDate"
+                    label="Start Date"
+                    type="date"
+                    value={formData.startDate}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    InputProps={{
+                        inputProps: { max: formData.endDate },
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="endDate"
+                    label="End Date"
+                    type="date"
+                    value={formData.endDate}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    InputProps={{
+                        inputProps: { min: formData.startDate },
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <Select
+                    name="isCaseClosed"
+                    label="Is Case Closed"
+                    value={formData.status}
+                    onChange={handleChange}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                >
+                    <MenuItem value={false}>Opened</MenuItem>
+                    <MenuItem value={true}>Closed</MenuItem>
+                </Select>
+                <Button type="submit" variant="contained" sx={{ justifySelf: 'center' }}>Create</Button>
+            </FormControl>
+        </div>
+
     );
 }

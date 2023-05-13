@@ -10,6 +10,7 @@ import { Select } from "@mui/material";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom'
+import "./styles/cases.scss"
 
 export function UpdateCaseForm() {
 
@@ -63,105 +64,110 @@ export function UpdateCaseForm() {
     }, [])
 
     return (
-        <FormControl
-            sx={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(1, 1fr)',
-                gridTemplateRows: 'repeat(4, auto)',
-                gridGap: 2,
-                justifyContent: 'center',
-                alignItems: 'center',
-                '& > *': { m: 1 }
-            }}
-            onSubmit={handleSubmit}
-            component="form"
+        <div className="page" id="update-case">
+            <div className='page-heading'>
+                <h1 className="page-title">Update Case</h1>
+            </div>
+            <FormControl
+                sx={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(1, 1fr)',
+                    gridTemplateRows: 'repeat(4, auto)',
+                    gridGap: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    '& > *': { m: 1 }
+                }}
+                onSubmit={handleSubmit}
+                component="form"
 
-        >
-            <TextField
-                name="title"
-                label="Case Title"
-                value={title}
-                onChange={(e)=>{
-                    setTitle(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="description"
-                label="Case Description"
-                value={description}
-                onChange={(e)=>{
-                    setDescription(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-
-            />
-            <TextField
-                name="associatedMemberId"
-                label="Associated Member ID"
-                value={associatedMemberId}
-                onChange={(e)=>{
-                    setAssociatedMemberId(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="startDate"
-                label="Start Date"
-                type="date"
-                value={startDate}
-                onChange={(e)=>{
-                    setStartDate(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <TextField
-                name="endDate"
-                label="End Date"
-                type="date"
-                value={endDate}
-                onChange={(e)=>{
-                    setEndDate(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            />
-            <Typography
-                textAlign="center"
             >
-                Is Case Closed?
-            </Typography>
-            <Select
-                name="isCaseClosed"
-                label="Is Case Closed"
-                value={isCaseClosed}
-                onChange={(e)=>{
-                    setIsCaseClosed(e.target.value)
-                }}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                sx={{ gridColumn: '1 / 3', m: '1vh' }}
-            >
-                <MenuItem value={false}>Opened</MenuItem>
-                <MenuItem value={true}>Closed</MenuItem>
-            </Select>
+                <TextField
+                    name="title"
+                    label="Case Title"
+                    value={title}
+                    onChange={(e) => {
+                        setTitle(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="description"
+                    label="Case Description"
+                    value={description}
+                    onChange={(e) => {
+                        setDescription(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
 
-            <Button type="submit" variant="contained" sx={{ justifySelf: 'center' }}>Submit</Button>
-        </FormControl>
+                />
+                <TextField
+                    name="associatedMemberId"
+                    label="Associated Member ID"
+                    value={associatedMemberId}
+                    onChange={(e) => {
+                        setAssociatedMemberId(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="startDate"
+                    label="Start Date"
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => {
+                        setStartDate(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <TextField
+                    name="endDate"
+                    label="End Date"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => {
+                        setEndDate(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                />
+                <Typography
+                    textAlign="center"
+                >
+                    Is Case Closed?
+                </Typography>
+                <Select
+                    name="isCaseClosed"
+                    label="Is Case Closed"
+                    value={isCaseClosed}
+                    onChange={(e) => {
+                        setIsCaseClosed(e.target.value)
+                    }}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    sx={{ gridColumn: '1 / 3', m: '1vh' }}
+                >
+                    <MenuItem value={false}>Opened</MenuItem>
+                    <MenuItem value={true}>Closed</MenuItem>
+                </Select>
+
+                <Button type="submit" variant="contained" sx={{ justifySelf: 'center' }}>Submit</Button>
+            </FormControl>
+        </div>
     );
 }

@@ -13,14 +13,16 @@ import { Homepage } from "../pages/homepage";
 import { Cases } from "../pages/cases/Cases";
 import { CreateCaseForm } from "../pages/cases/createCase"
 import { UpdateCaseForm } from "../pages/cases/update";
+import { Footer } from "../components/footer";
+import PrivacyPage from "../pages/privacy";
+import TermsPage from '../pages/terms'
 
 const AppLayout = () => {
     return (
         <>
             <MenuBar />
-            <div style={{ paddingTop: "70px" }}>
-                <Outlet />
-            </div>
+            <Outlet />
+            <Footer />
         </>
     )
 }
@@ -29,7 +31,7 @@ export const router = createBrowserRouter([
     {
         path: "",
         element: <AppLayout />,
-        children: [,
+        children: [
             {
                 path: "",
                 element: <Homepage />
@@ -89,6 +91,14 @@ export const router = createBrowserRouter([
                         element: <Cases />
                     }
                 ]
+            },
+            {
+                path: "privacy",
+                element: <PrivacyPage />
+            },
+            {
+                path: "terms",
+                element: <TermsPage />
             }
         ]
     }
